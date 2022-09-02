@@ -34,23 +34,24 @@ public class Wordle {
     Use the ArrayList to store the words, and then Random to
     select one.
      */
-  public static String selectRandomWord(String wordfile[]) {
+  public static String selectRandomWord(String wordfile) throws IOException {
       ArrayList<String> words = new ArrayList<String>();
-      for (int i = 0; i < wordfile.length; i++){
-          words.add(wordfile[i]);
-      }
-      Random generator = new Random();
-      int random = generator.nextInt(18);
+      Scanner input = getFileHandle(wordfile);
+      for (int i = 0; i < words.size(); i++){
+          String temp = input.nextLine();
+          words.add(temp);
       // you do this part.
-       return words.get(random);
+         Random generator = new Random();
+         int random = generator.nextInt(words.size);
+         return words.get(random);
     }
 
     /* testSelectRandomWord. This should call selectRandomWord and display the word
     that was selected.
      */
 
-  /* public static void testSelectRandomWord() {
-
+  /*public static void testSelectRandomWord() {
+    selectRandomWord("poop");
     }
 
 /*
@@ -70,12 +71,10 @@ Our primary method.
     public static void main(String args[])throws IOException {
         String fileName = "wordleWords";
         File file = new File(fileName);
-        Scanner input = getFileHandle(fileName);
         String wordList[] = new String[18];
         for (int i = 0; i < wordList.length; i++){
             wordList[i] = input.nextLine();
         }
-        System.out.println(selectRandomWord(wordList));
 
 
 
