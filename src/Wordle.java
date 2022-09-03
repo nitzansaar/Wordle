@@ -97,8 +97,8 @@ Our primary method.
           System.out.println("Welcome to worlde! Please enter your guess: ");
           guess = input.nextLine();
           code = compareWords(secretWord, guess);
+
           if (code.equals("!!!!!")){
-              System.out.println(code);
               System.out.println("First try!");
           }else{
               do{
@@ -111,6 +111,7 @@ Our primary method.
               }while (count > 0 && !code.equals("!!!!!"));
           }
           System.out.println(code);
+
           if (code.equals("!!!!!")){
               System.out.println("congrats, you won!");
           }else{
