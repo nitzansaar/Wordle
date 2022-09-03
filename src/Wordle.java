@@ -99,7 +99,7 @@ Our primary method.
           code = compareWords(secretWord, guess);
           if (code.equals("!!!!!")){
               System.out.println(code);
-              System.out.println("You win!");
+              System.out.println("First try!");
           }else{
               do{
                   System.out.println(code);
@@ -110,7 +110,12 @@ Our primary method.
                   count--;
               }while (count > 0 && !code.equals("!!!!!"));
           }
-          System.out.println("Thanks for playing");
+          System.out.println(code);
+          if (code.equals("!!!!!")){
+              System.out.println("congrats, you won!");
+          }else{
+              System.out.println("better luck next time!");
+          }
       }
 
       public static void main(String args[]){
