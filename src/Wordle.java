@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -10,8 +8,25 @@ import java.util.ArrayList;
  */
 public class Wordle
 {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    //
+    public static void updateScore(int wins, int losses)
+    {
+        File file = new File("totalScore");
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);// no idea what this is
+        }
+        out.write("Wins: " + wins + "\nLosses: " + losses);
+        out.close();
+
+    }
     // creates a scanner for the file containing a list of words
-   public static Scanner getFileHandle(String filename) {
+   public static Scanner getFileHandle(String filename)
+   {
        Scanner sc = null;
        try{
            File file = new File(filename);
@@ -28,16 +43,21 @@ public class Wordle
         put a ! at that position. If a letter is in the secret word, but it's in the wrong place, put a 0. And if
         if's not present, put a X.
      */
-   public static String compareWords(String secretWord, String guess) {
+   public static String compareWords(String secretWord, String guess)
+   {
        String code = new String();
-        for (int i = 0, j = 1; i < guess.length(); i++, j++){
+        for (int i = 0, j = 1; i < guess.length(); i++, j++)
+        {
             String letter = guess.substring(i,j);
             String secretLetter = secretWord.substring(i,j);
-            if(letter.equals(secretLetter)){
+            if(letter.equalsIgnoreCase(secretLetter))
+            {
                 code += "!";
-            }else if (secretWord.contains(letter)){
+            }else if (secretWord.contains(letter))
+            {
                 code += "0";
-            }else{
+            }else
+            {
                 code += "X";
             }
         }
@@ -49,7 +69,8 @@ public class Wordle
     same letters but different position, completely different) to make aure it works.
     Return true if compareTwoWords does everything right, and false otherwise.
      */
-   public static boolean testCompareWords() { // do you want me to create my own guesses to test this method?
+   public static boolean testCompareWords()
+   { // do you want me to create my own guesses to test this method?
        String secretWord = selectRandomWord("wordleWords");
        String idk = compareWords(secretWord, "flash");
        return idk == "!!!!!";
@@ -60,10 +81,12 @@ public class Wordle
     Use the ArrayList to store the words, and then Random to
     select one.
      */
-  public static String selectRandomWord(String wordfile) {
+  public static String selectRandomWord(String wordfile)
+  {
       ArrayList<String> words = new ArrayList<String>();
       Scanner input = getFileHandle(wordfile);
-      for (int i = 0; i < 18; i++) {
+      for (int i = 0; i < 18; i++)
+      {
           String temp = input.nextLine();
           words.add(temp);
       }
@@ -78,55 +101,78 @@ public class Wordle
     that was selected.
      */
 
-      public static void testSelectRandomWord() {
+      public static void testSelectRandomWord()
+      {
           String randomWord = selectRandomWord("wordleWords");
           System.out.println(randomWord);
       }
 /*
 Our primary method.
  */
-      public static void playGame() {
-          // Read a word from the file.
-          // set a counter for the number of guesses so far.
-          // loop:
-          // prompt the user for a word.
-          // Display the result.
-          // Show the letters guessed so far
+      public static void playGame()
+      {
           Scanner input = new Scanner(System.in);
           String guessedLetters = "";
           String guess;
           String result;
           String secretWord;
+          String answer;
           int count = 5;
-          secretWord = selectRandomWord("wordleWords");
-          //System.out.println(secretWord);
-          System.out.println("Welcome to worlde! Please enter you a 5 letter word: ");
-          guess = input.nextLine();
-          result = compareWords(secretWord, guess);
-          if (result.equals("!!!!!")){
-              System.out.println("First try!");
-          }else{
-              do{
-                  guessedLetters += guess;
-                  System.out.println(result);
-                  System.out.println("Guessed letters: " + guessedLetters);
-                  System.out.println("remaining tries = " + count);
-                  System.out.println("Try again");
+          int wins = 0;
+          int losses = 0;
+
+          System.out.print("Welcome to worlde! Do you want to play?(Y/N): ");
+          answer = input.nextLine();
+          if(answer.equalsIgnoreCase("Y"))
+          {
+              do
+              {
+                  secretWord = selectRandomWord("wordleWords");
+                  //System.out.println(secretWord);
+                  System.out.print("Please enter a 5 letter word: ");
                   guess = input.nextLine();
                   result = compareWords(secretWord, guess);
-                  count--;
-              }while (count > 0 && !result.equals("!!!!!"));
-          }
-          System.out.println(result);
+                  if (result.equals("!!!!!"))
+                  {
+                      System.out.println("First try!");
+                  } else
+                  {
+                      do
+                      {
+                          guessedLetters += guess; // stores all the guesses into a single string
+                          System.out.println(ANSI_PURPLE + result + ANSI_RESET);
+                          System.out.println("Guessed letters: " + guessedLetters);
+                          System.out.println("remaining tries: " + count);
+                          System.out.println("Try again");
+                          guess = input.nextLine();
+                          result = compareWords(secretWord, guess);
+                          count--;
+                      } while (count > 0 && !result.equals("!!!!!"));
+                  }
+                  System.out.println(ANSI_PURPLE + result + ANSI_RESET);
 
-          if (result.equals("!!!!!")){
-              System.out.println("congrats, you won!");
-          }else{
-              System.out.println("better luck next time! , the word was " + secretWord);
+                  if (result.equals("!!!!!"))
+                  {
+                      System.out.println("congrats, you won!");
+                      wins++;
+                  } else
+                  {
+                      System.out.println("better luck next time! , the word was " + secretWord);
+                      losses++;
+                  }
+
+                  System.out.print("Do you want to play again?(Y?N): ");
+                  answer = input.nextLine();
+              }while(answer.equalsIgnoreCase("Y"));
           }
+          updateScore(wins, losses);
+          System.out.println("Wins: " + wins + "\nLosses: " + losses); // display the wins and losses
+          System.out.print("Have a nice day :)");
       }
 
-      public static void main(String args[]){
+
+      public static void main(String args[])
+      {
           //testSelectRandomWord();
           playGame();
 
