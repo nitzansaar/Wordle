@@ -5,6 +5,9 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Nitzan Saar Assignment 1
+ */
 public class Wordle
 {
     // creates a scanner for the file containing a list of words
@@ -26,7 +29,7 @@ public class Wordle
         if's not present, put a X.
      */
    public static String compareWords(String secretWord, String guess) {
-       String code = "";
+       String code = new String();
         for (int i = 0, j = 1; i < guess.length(); i++, j++){
             String letter = guess.substring(i,j);
             String secretLetter = secretWord.substring(i,j);
@@ -47,7 +50,9 @@ public class Wordle
     Return true if compareTwoWords does everything right, and false otherwise.
      */
    public static boolean testCompareWords() { // do you want me to create my own guesses to test this method?
-        return false;
+       String secretWord = selectRandomWord("wordleWords");
+       String idk = compareWords(secretWord, "flash");
+       return idk == "!!!!!";
    }
 
     /*
@@ -88,34 +93,36 @@ Our primary method.
           // Display the result.
           // Show the letters guessed so far
           Scanner input = new Scanner(System.in);
+          String guessedLetters = "";
           String guess;
-          String code;
+          String result;
           String secretWord;
           int count = 5;
           secretWord = selectRandomWord("wordleWords");
-          System.out.println(secretWord);
-          System.out.println("Welcome to worlde! Please enter your guess: ");
+          //System.out.println(secretWord);
+          System.out.println("Welcome to worlde! Please enter you a 5 letter word: ");
           guess = input.nextLine();
-          code = compareWords(secretWord, guess);
-
-          if (code.equals("!!!!!")){
+          result = compareWords(secretWord, guess);
+          if (result.equals("!!!!!")){
               System.out.println("First try!");
           }else{
               do{
-                  System.out.println(code);
+                  guessedLetters += guess;
+                  System.out.println(result);
+                  System.out.println("Guessed letters: " + guessedLetters);
                   System.out.println("remaining tries = " + count);
                   System.out.println("Try again");
                   guess = input.nextLine();
-                  code = compareWords(secretWord, guess);
+                  result = compareWords(secretWord, guess);
                   count--;
-              }while (count > 0 && !code.equals("!!!!!"));
+              }while (count > 0 && !result.equals("!!!!!"));
           }
-          System.out.println(code);
+          System.out.println(result);
 
-          if (code.equals("!!!!!")){
+          if (result.equals("!!!!!")){
               System.out.println("congrats, you won!");
           }else{
-              System.out.println("better luck next time!");
+              System.out.println("better luck next time! , the word was " + secretWord);
           }
       }
 
