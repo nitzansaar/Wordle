@@ -106,6 +106,7 @@ public class Wordle
           String randomWord = selectRandomWord("wordleWords");
           System.out.println(randomWord);
       }
+
 /*
 Our primary method.
  */
@@ -139,10 +140,11 @@ Our primary method.
                   {
                       do
                       {
+                          //guessedLetters = trackGuessedLetters(guess);
                           guessedLetters += guess; // stores all the guesses into a single string
                           System.out.println(ANSI_PURPLE + result + ANSI_RESET);
-                          System.out.println("Guessed letters: " + guessedLetters);
-                          System.out.println("remaining tries: " + count);
+                          System.out.println("Guessed: " + guessedLetters.toUpperCase());
+                          System.out.println("Remaining tries: " + count);
                           System.out.println("Try again");
                           guess = input.nextLine();
                           result = compareWords(secretWord, guess);
