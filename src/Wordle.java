@@ -124,14 +124,19 @@ Our primary method.
 
           System.out.print("Welcome to worlde! Do you want to play?(Y/N): ");
           answer = input.nextLine();
-          if(answer.equalsIgnoreCase("Y"))
+          if(answer.equalsIgnoreCase("Y")) // the user decides if they wish to play or not
           {
               do
               {
-                  secretWord = selectRandomWord("wordleWords");
+                  secretWord = selectRandomWord("wordleWords"); // generate a random word and store it into variable "secretWord"
                   //System.out.println(secretWord);
                   System.out.print("Please enter a 5 letter word: ");
                   guess = input.nextLine();
+                  while (guess.length() != 5)
+                  { // loop to ensure the user enters a 5-letter word
+                      System.out.print("That's not a 5 letter word, try again: ");
+                      guess = input.nextLine();
+                  }
                   result = compareWords(secretWord, guess);
                   if (result.equals("!!!!!"))
                   {
@@ -140,29 +145,34 @@ Our primary method.
                   {
                       do
                       {
-                          //guessedLetters = trackGuessedLetters(guess);
                           guessedLetters += guess.toUpperCase(); // stores all the guesses into a single string
                           System.out.println(ANSI_PURPLE + result + ANSI_RESET);
                           System.out.print("Guessed: ");
-                          for (int i = 0; i < guessedLetters.length(); i++){
+                          for (int i = 0; i < guessedLetters.length(); i++)
+                          {// loop to print out the guessed letters separated by a space
                               System.out.print(guessedLetters.charAt(i) + " ");
                           }
                           System.out.println("\nRemaining tries: " + count);
-                          System.out.println("Try again");
+                          System.out.print("Try again: ");
                           guess = input.nextLine();
+                          while (guess.length() != 5)
+                          {// error detection loop to ensure user enters 5-letter word
+                              System.out.print("That's not a 5 letter word, try again: ");
+                              guess = input.nextLine();
+                          }
                           result = compareWords(secretWord, guess);
                           count--;
-                      } while (count > 0 && !result.equals("!!!!!"));
+                      } while (count > 0 && !result.equals("!!!!!"));// stay in the loop if the user still has guesses remaining and the user hasn't guessed correctly
                   }
                   System.out.println(ANSI_PURPLE + result + ANSI_RESET);
 
                   if (result.equals("!!!!!"))
                   {
-                      System.out.println("congrats, you won!");
+                      System.out.println("Congrats, you won!!!");
                       wins++;
                   } else
                   {
-                      System.out.println("better luck next time! , the word was " + secretWord);
+                      System.out.println("Better luck next time! The word was \"" + secretWord + "\".\n");
                       losses++;
                   }
 
