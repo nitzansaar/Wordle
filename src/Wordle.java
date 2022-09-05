@@ -172,7 +172,7 @@ Our primary method.
                       wins++;
                   } else
                   {
-                      System.out.println("Better luck next time! The word was \"" + secretWord + "\".\n");
+                      System.out.println("Better luck next time! The word was \"" + secretWord.toUpperCase() + "\".\n");
                       losses++;
                   }
 
@@ -182,7 +182,7 @@ Our primary method.
           }
           updateScore(wins, losses);
           System.out.println("Wins: " + wins + "\nLosses: " + losses); // display the wins and losses
-          System.out.print("Have a nice day");
+          System.out.print("Have a nice day :-)");
       }
 
 
