@@ -145,7 +145,7 @@ Our primary method.
                   {
                       do
                       {
-                          guessedLetters += guess.toUpperCase(); // stores all the guesses into a single string
+                          guessedLetters += guess.toUpperCase() + "|"; // stores all the guesses into a single string
                           System.out.println(ANSI_PURPLE + result + ANSI_RESET);
                           System.out.print("Guessed: ");
                           for (int i = 0; i < guessedLetters.length(); i++)
@@ -178,6 +178,8 @@ Our primary method.
 
                   System.out.print("Do you want to play again?(Y?N): ");
                   answer = input.nextLine();
+                  count = 5;
+                  guessedLetters = "";
               }while(answer.equalsIgnoreCase("Y"));
           }
           updateScore(wins, losses);
