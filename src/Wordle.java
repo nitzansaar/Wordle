@@ -24,7 +24,7 @@ public class Wordle
         out.close();
 
     }
-    // creates a scanner for the file containing a list of words
+    // returns a scanner for the file containing a list of words
    public static Scanner getFileHandle(String filename)
    {
        Scanner sc = null;
@@ -61,7 +61,6 @@ public class Wordle
                 code += "X";
             }
         }
-      // you do this part
         return code;
     }
 
@@ -122,14 +121,14 @@ Our primary method.
           int wins = 0;
           int losses = 0;
 
-          System.out.print("Welcome to worlde! Do you want to play?(Y/N): ");
+          System.out.print("Welcome to Worlde! Do you want to play?(Y/N): ");
           answer = input.nextLine();
           if(answer.equalsIgnoreCase("Y")) // the user decides if they wish to play or not
           {
               do
               {
-                  secretWord = selectRandomWord("wordleWords"); // generate a random word and store it into variable "secretWord"
-                  //System.out.println(secretWord);
+                  secretWord = selectRandomWord("wordleWords");// generate a random word and store it into variable "secretWord"
+                  //System.out.println(secretWord); to test
                   System.out.print("Please enter a 5 letter word: ");
                   guess = input.nextLine();
                   while (guess.length() != 5)
@@ -149,7 +148,7 @@ Our primary method.
                           System.out.println(ANSI_PURPLE + result + ANSI_RESET);
                           System.out.print("Guessed: ");
                           for (int i = 0; i < guessedLetters.length(); i++)
-                          {// loop to print out the guessed letters separated by a space
+                          {// loop to neatly print out the guessed letters separated by a space
                               System.out.print(guessedLetters.charAt(i) + " ");
                           }
                           System.out.println("\nRemaining tries: " + count);
@@ -172,14 +171,14 @@ Our primary method.
                       wins++;
                   } else
                   {
-                      System.out.println("Better luck next time! The word was \"" + secretWord.toUpperCase() + "\".\n");
+                      System.out.println("Better luck next time! The word was \"" + secretWord.toUpperCase() + "\"");
                       losses++;
                   }
-
+                  System.out.println("--------------------------------");
                   System.out.print("Do you want to play again?(Y?N): ");
                   answer = input.nextLine();
-                  count = 5;
-                  guessedLetters = "";
+                  count = 5; //reset the count
+                  guessedLetters = ""; //reset the guesses
               }while(answer.equalsIgnoreCase("Y"));
           }
           updateScore(wins, losses);
