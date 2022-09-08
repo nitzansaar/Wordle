@@ -69,10 +69,14 @@ public class Wordle
     Return true if compareTwoWords does everything right, and false otherwise.
      */
    public static boolean testCompareWords()
-   { // do you want me to create my own guesses to test this method?
-       String secretWord = selectRandomWord("wordleWords");
-       String idk = compareWords(secretWord, "flash");
-       return idk == "!!!!!";
+   {
+       String result = compareWords("Hello", "Hello");
+       String result2 = compareWords("Hello", "12345");
+       String result3 = compareWords("Hello", "Great");
+       System.out.println("Should be \"!!!!!\": " + result);
+       System.out.println("Should be \"XXXXX\": " + result2);;
+       System.out.println("Should be \"XX0XX\": " + result3);
+       return (result.equals("!!!!!"));
    }
 
     /*
@@ -123,7 +127,7 @@ Our primary method.
 
           System.out.print("Welcome to Worlde! Do you want to play?(Y/N): ");
           answer = input.nextLine();
-          if(answer.equalsIgnoreCase("Y")) // the user decides if they wish to play or not
+          if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("yes")) // the user decides if they wish to play or not
           {
               do
               {
@@ -179,7 +183,7 @@ Our primary method.
                   answer = input.nextLine();
                   count = 5; //reset the count
                   guessedLetters = ""; //reset the guesses
-              }while(answer.equalsIgnoreCase("Y"));
+              }while(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("yes"));
           }
           updateScore(wins, losses);
           System.out.println("Wins: " + wins + "\nLosses: " + losses); // display the wins and losses
@@ -189,7 +193,10 @@ Our primary method.
 
       public static void main(String args[])
       {
-          //testSelectRandomWord();
+          /*System.out.print("Random word: ");
+          testSelectRandomWord();
+          boolean test = testCompareWords();
+          System.out.println(test);*/
           playGame();
 
 
