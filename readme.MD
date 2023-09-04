@@ -1,72 +1,51 @@
-Due: September 9 at the start of class.
+# Wordle Game Project
 
-The GitHub Classroom link for this assignment can be found here: 
+This repository contains the code for a simple Wordle game implemented in Java. The game challenges players to guess a secret word within a limited number of tries. As players submit their guesses, the game provides feedback to indicate correct letters in the correct position (!), correct letters in the wrong position (0), and incorrect letters (X).
 
-To turn in: commit all of your code to your github repo by the deadline.
+## How to Play
 
-In this homework, you'll get some experience writing a Java program that can 
-handle user input, read from file, and use loops, conditionals and static methods.
+1. Clone or download the repository to your local machine.
 
-All code should be well-formatted,
-with no extraneous or commented-out code. Please include your name in a comment
-at the top of Wordle.java.
+2. Compile and run the `Wordle` class to start the game.
 
-This homework will be graded using specifications grading. 
-There are a sequence of tasks to complete. 
-Grades will be assigned as follows: 
+3. The game will select a random word for you to guess. You'll have up to 5 tries to guess the word.
 
-- To receive a C, you should complete tasks 1,2,3,4,5
-- To receive a B, complete all the C-level tasks, plus 6 and 7
-- To receive an A, complete the B-level tasks, plus *either* task 8 or task 9.
+4. Enter a 5-letter word as your guess. The game will provide feedback after each guess.
 
+5. The feedback consists of:
+   - `!`: Correct letter in the correct position.
+   - `0`: Correct letter in the wrong position.
+   - `X`: Incorrect letter.
 
-We'll implement a simplified version of the popular game Wordle. 
-If you haven't tried Wordle, you can play  it [here](https://www.nytimes.com/games/wordle/index.html).
+6. Keep guessing until you've either guessed the word or used all your tries.
 
- The game works like this:
-The computer picks a hidden five-letter word.
+7. After each game, you'll be asked if you want to play again. Enter 'Y' or 'N' to continue or quit the game.
 
-The player has six tries to guess the word. After each guess, they're told:
-- Letters that are in the word and in the right place (marked with a !)
-- Letters that are in the word, but in the wrong place (marked with a O)
-- Letters that are not in the word. (marked with a X)
+## Running the Code
 
-So, for example, if the hidden word was MATCH and the player guessed TRASH, the computer would display XXOX!
+1. Compile the code:
 
+javac Wordle.java
 
-To keep it simple, let's only use words without repeated letters. (no GEESE or TRUST).
+2. Run the game:
 
-I've provided you with some starter code; your job is to fill in the blanks.
+java Wordle
 
-Part 1. Implement the getFileHandle method. This should take as input a filename and return an
-opened Scanner for that file.
+## Additional Information
 
-Part 2. Implement selectRandomWord. It should take as input a filename, call getFileHandle to open the file,
-read all the words into an ArrayList, choose one at random, and return it.
+- The `wordleWords` file contains a list of words from which the game selects a secret word.
 
-Part 3. Let's write our first test method. 
-It should be called testSelectRandomWord. 
-It should call selectRandomWord with both a valid and an invalid filename and make sure it works correctly.
-Call your test function within main().
+- The game tracks your wins and losses and updates the score in the `totalScore` file.
 
-Part 4: Now we'll implement compareWords. It should take two arguments: a secret word and a guess. It should return a new string representing the results of the user's guess, as described above.
+## What I Learned
 
-Part 5: Now let's write testCompareWords. It should call compareWords with a variety of different inputs to ensure that it works.
+While working on this project, I learned:
+- How to read and manipulate files in Java.
+- How to implement a simple game loop and user input handling.
+- How to use string manipulation to compare words and provide feedback.
+- How to work with arrays, lists, and random number generation.
 
-Part 6: Now we're ready to build the game itself. We'll do this inside playGame(). Play game should:
-- Call selectRandomWord to get a word.
-- Use a loop to give the user six guesses. Prompt the user, and then use a Scanner to read their guesss.
-- For each guess, display the result of compareWords.
-- If they get it right, tell them they've won.
-- If they use all six guesses, they have lost.
+Feel free to explore the code and experiment with the game. If you have any questions or suggestions for improvements, feel free to open an issue or contact me.
 
-Call playGame() from main. (you'll probably want to comment out your test code.)
+Have fun playing Wordle!
 
-Part 7: Let's help the user out a little and keep track of the letters they've already guessed.
-Create a String called guessedLetters inside playGame. Every time the use makes a guess, add their guess to the string and display the guessed letters.
-
-Part 8: We can make this look a little nicer by using color. [This link](https://www.geeksforgeeks.org/how-to-print-colored-text-in-java-console/)
- shows how to do this. Modify your game to use different colors for letters in the result of compareWords.
-
-Part 9: Let's keep track of the user's performance. Use a file called totalScore to store two numbers - the number of wins and losses.
-At the end of each game, update this file and display the user's total number of wins and losses.

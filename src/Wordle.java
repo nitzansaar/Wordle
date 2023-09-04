@@ -3,9 +3,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-/**
- * Nitzan Saar Assignment 1
- */
+
 public class Wordle
 {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -18,7 +16,7 @@ public class Wordle
         try {
             out = new PrintWriter(file);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);// no idea what this is
+            throw new RuntimeException(e);
         }
         out.write("Wins: " + wins + "\nLosses: " + losses);
         out.close();
@@ -125,10 +123,6 @@ Our primary method.
           int wins = 0;
           int losses = 0;
 
-          System.out.print("Welcome to Worlde! Do you want to play?(Y/N): ");
-          answer = input.nextLine();
-          if(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("yes")) // the user decides if they wish to play or not
-          {
               do
               {
                   secretWord = selectRandomWord("wordleWords");// generate a random word and store it into variable "secretWord"
@@ -184,10 +178,9 @@ Our primary method.
                   count = 5; //reset the count
                   guessedLetters = ""; //reset the guesses
               }while(answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("yes"));
-          }
           updateScore(wins, losses);
           System.out.println("Wins: " + wins + "\nLosses: " + losses); // display the wins and losses
-          System.out.print("Have a nice day :-)");
+          System.out.print("Have a nice day :-)\n");
       }
 
 
